@@ -1,0 +1,14 @@
+const QueryBuilder = require("./query-builder");
+
+const queryBuilder = new QueryBuilder();
+
+queryBuilder
+    .select("e.BAND, a.PERFORMANCE_SUGGESTION, a.PERFORMANCE_SUGGESTION,a.EVAL_9BOX,e.INNOVATION, e.BUSINESS_RESULTS, e.RESPONSIBILITY, e.SKILLS,a.YEAR,  e.INDUSTRY, e.JOB_CATEGORY,  e.BUSINESS_VALUE")
+    .from("GLOBALDEV.EMPLOYEE_RECORD_US AS E INNER JOIN GLOBALDEV.ASSESSMENT AS A ON E.ID_ASSESSMENT = A.ID_ASSESSMENT LEFT JOIN GLOBALDEV.ACTION_QUARTER_US AS AQ ON E.SERIAL_NUMBER = AQ.ACTQUARTER_ID")
+    .where("E.ELIGIBLE = 'Y' AND E.MANAGER_CNUM = ? AND A.YEAR = ?")
+    .setParameters("'042686781'",2022)
+    .orderBy("ORDER BY E.NAME ASC");
+
+let query = queryBuilder.build();
+
+console.log(query);
